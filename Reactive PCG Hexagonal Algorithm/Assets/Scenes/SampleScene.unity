@@ -386,9 +386,10 @@ MonoBehaviour:
   width: 20
   height: 20
   minEnergy: 1
-  maxEnergy: 5
-  initialEnergy: 2
+  maxEnergy: 10
+  initialEnergy: 3
   availableBiomes: 02000000030000000400000005000000
+  closeGridThreshold: 0.15
 --- !u!4 &718669595
 Transform:
   m_ObjectHideFlags: 0
@@ -437,7 +438,7 @@ MonoBehaviour:
   height: 20
   tilePrefab: {fileID: 8608107662447420096, guid: 5e66e9b5408e3bc4d8b39c929ba1f90f, type: 3}
   hexRadius: 0.5
-  gap: 0.05
+  gap: 0.1
 --- !u!4 &1555325691
 Transform:
   m_ObjectHideFlags: 0

@@ -6,6 +6,7 @@ public class Tile : MonoBehaviour
     public BiomeType biomeType = BiomeType.None;
     public int currentEnergy = 0;   
     public int neighborsCount = 0;
+    public int connectionMask = 1;
     public bool isTrigger = false;
     public GameObject isTriggerIndicator;
 
@@ -65,6 +66,18 @@ public class Tile : MonoBehaviour
         {
             isTriggerIndicator.SetActive(isTrigger);
         }
+    }
+
+    public void Interact()
+    {
+        Debug.Log($"Interacting with tile at {gridPosition} of biome {biomeType}");
+        // Dispara o processamento da interação no gerenciador principal
+        ReactiveHexMapManager.Instance?.ProcessTileInteraction(this);
+    }
+
+    void OnMouseDown()
+    {
+        Interact();
     }
 
 }
