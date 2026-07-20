@@ -12,8 +12,8 @@ public class ReactiveHexMapManager : MonoBehaviour
     public List<BiomeType> availableBiomes = new()
     {
         BiomeType.Forest,
-        BiomeType.Mountain,
         BiomeType.Lake,
+        BiomeType.Mountain,
         BiomeType.Swamp
     };
     public Dictionary<BiomeType, int> biomeInteractions = new Dictionary<BiomeType, int>();
@@ -265,6 +265,7 @@ public class ReactiveHexMapManager : MonoBehaviour
         biomeInteractions[biome]++;
 
         UpdateBiomeProbabilities();
+        FindObjectOfType<UIController>()?.UpdateUI();
 
         Debug.Log($"[Telemetria] Bioma {biome} interagido! Novo total: {biomeInteractions[biome]}");
     }
@@ -314,6 +315,9 @@ public class ReactiveHexMapManager : MonoBehaviour
     {
         float randomValue = Random.Range(0f, 1f);
         float cumulativeProbability = 0f;
+
+        // Atualiza a posição do triângulo indicador na tela com o valor sorteado
+        FindObjectOfType<UIController>()?.UpdateIndicatorPosition(randomValue);
 
         foreach (BiomeType biome in availableBiomes)
         {
@@ -398,5 +402,29 @@ public class ReactiveHexMapManager : MonoBehaviour
         {
             CalculateAdjacency();
         }
+    }
+
+    /// <summary>
+    /// Retorna a contagem total de interações de um bioma específico.
+    /// </summary>
+    public int GetBiomeCount(BiomeType biome)
+    {
+        if (biomeInteractions.TryGetValue(biome, out int count))
+        {
+            return count;
+        }
+        return 1; // Fallback para a neutralidade inicial
+    }
+
+    /// <summary>
+    /// Retorna a probabilidade P(bioma) atual de um bioma específico (de 0.0 a 1.0).
+    /// </summary>
+    public float GetBiomeProbability(BiomeType biome)
+    {
+        if (biomeProbabilities.TryGetValue(biome, out float prob))
+        {
+            return prob;
+        }
+        return 0.25f; // Fallback equiprovável
     }
 }

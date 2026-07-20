@@ -51,7 +51,7 @@ public class Tile : MonoBehaviour
                 spriteRenderer.color = Color.blue;
                 break;
             case BiomeType.Swamp:
-                spriteRenderer.color = new Color(0.4f, 0.2f, 0.0f); // Brownish
+                spriteRenderer.color = new Color(0.4f, 0.1f, 0.6f);
                 break;
             default:
                 spriteRenderer.color = new Color(0.0f, 0.2f, 0.3f); // Default color for None or uninitialized
