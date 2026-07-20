@@ -11,11 +11,6 @@ public class MapMatrix : MonoBehaviour
     private Tile[,] matrix;
     private Vector3 worldOffset;
 
-    void Start()
-    {
-        CalculateWorldOffset();
-        InitializeMatrix();
-    }
 
     private void CalculateWorldOffset()
     {
@@ -28,8 +23,13 @@ public class MapMatrix : MonoBehaviour
         worldOffset = new Vector3(-totalWidth / 2f, totalHeight / 2f, 0f);
     }
 
-    public void InitializeMatrix()
+    public void InitializeMatrix(int w, int h)
     {
+        width = w;
+        height = h;
+
+        CalculateWorldOffset();
+
         matrix = new Tile[width, height];
 
         // Varredura: Cima -> Baixo
