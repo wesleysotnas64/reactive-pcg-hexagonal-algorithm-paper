@@ -20,7 +20,7 @@ public class Tile : MonoBehaviour
         this.biomeType = biome;
         this.currentEnergy = energy;
         this.neighborsCount = 0;
-        this.gameObject.name = $"Tile_{position.x}_{position.y} ({biome})";
+        this.gameObject.name = $"Tile_{position.y}_{position.x} ({biome})";
 
         SetColorBiome(biome);
     }
