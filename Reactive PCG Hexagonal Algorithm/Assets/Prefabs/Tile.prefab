@@ -79,7 +79,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_MaskInteraction: 0
   m_Sprite: {fileID: -712631045867808456, guid: c878ff0c4d98a994386220a83809bced, type: 3}
   m_Color: {r: 1, g: 0, b: 0.19862843, a: 1}
@@ -141,6 +141,8 @@ MonoBehaviour:
   biomeType: 0
   currentEnergy: 0
   neighborsCount: 0
+  isTrigger: 0
+  isTriggerIndicator: {fileID: 8604675517239415070}
 --- !u!212 &8582452892617238498
 SpriteRenderer:
   serializedVersion: 2

@@ -29,19 +29,19 @@ public class ReactiveHexMapManager : MonoBehaviour
         InitializeRoulette();
         mapMatrix.InitializeMatrix(width, height);
         GenerateBaseMap();
+        ApplyBoundaryFilter();
     }
 
-    // Bloco 01: Inicializa os dicionários com pesos iguais e probabilidade uniforme (25% cada).
     private void InitializeRoulette()
     {
         biomeInteractions.Clear();
         biomeProbabilities.Clear();
 
-        float initialProbability = 1f / availableBiomes.Count; // 1 / 4 = 0.25 (25%)
+        float initialProbability = 1f / availableBiomes.Count;
 
         foreach (BiomeType biome in availableBiomes)
         {
-            biomeInteractions.Add(biome, 1); // Interação inicial = 1 (neutralidade)
+            biomeInteractions.Add(biome, 1);
             biomeProbabilities.Add(biome, initialProbability);
         }
     }
@@ -111,5 +111,40 @@ public class ReactiveHexMapManager : MonoBehaviour
         }
 
         return neighbors;
+    }
+
+    private void ApplyBoundaryFilter()
+    {
+        for (int x = 0; x < mapMatrix.width; x++)
+        {
+            for (int y = 0; y < mapMatrix.height; y++)
+            {
+                Vector2Int currentPos = new Vector2Int(x, y);
+                Tile currentTile = mapMatrix.GetTile(currentPos);
+
+                if (currentTile != null && currentTile.biomeType != BiomeType.None)
+                {
+                    bool isEdge = false;
+                    List<Vector2Int> neighbors = GetHexNeighbors(currentPos);
+
+                    foreach (Vector2Int neighborPos in neighbors)
+                    {
+                        Tile neighborTile = mapMatrix.GetTile(neighborPos);
+
+                        if (neighborTile == null || neighborTile.biomeType == BiomeType.None)
+                        {
+                            isEdge = true;
+                            break; 
+                        }
+                    }
+
+                    currentTile.SetTriggerState(isEdge);
+                }
+                else if (currentTile != null)
+                {
+                    currentTile.SetTriggerState(false);
+                }
+            }
+        }
     }
 }
